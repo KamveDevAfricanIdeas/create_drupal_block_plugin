@@ -25,7 +25,7 @@ dependencies: -drupal:block
   class CustomBlock extends BlockBase implements BlockPluginInterface{
     /** * {@inheritdoc} **/
     public function build(){
-      return ['#markup'=>$this->t('My custom block plugin')]]
+      return ['#markup'=>$this->t('My custom block plugin'),];
     }
   }
 ```
