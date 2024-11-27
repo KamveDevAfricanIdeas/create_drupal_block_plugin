@@ -13,7 +13,8 @@ description: 'Some description here...'
 core: 8.x //must match the Drupal the site version
 core_version_requirements: ^8 || ^9 || ^10 || ^11
 package: Custom
-dependencies: -drupal:block
+dependencies:
+  - drupal:block
 ```
 > custom_block.php
 ```
@@ -25,7 +26,8 @@ dependencies: -drupal:block
   class CustomBlock extends BlockBase implements BlockPluginInterface{
     /** * {@inheritdoc} **/
     public function build(){
-      return ['#markup'=>$this->t('My custom block plugin'),];
+      return ['#markup'=>$this->t('My custom block plugin'),
+      ];
     }
   }
 ```
