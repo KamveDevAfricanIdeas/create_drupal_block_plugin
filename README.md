@@ -11,7 +11,7 @@ name: 'Custom Block Name'
 type: module
 description: 'Some description here...'
 core: 8.x //must match the Drupal the site version
-core_version_requirements: ^8 || ^9 || ^10 || ^11
+core_version_requirement: ^8 || ^9 || ^10 || ^11
 package: Custom
 dependencies:
   - drupal:block
