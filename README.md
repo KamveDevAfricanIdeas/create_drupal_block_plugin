@@ -83,10 +83,10 @@ public function build(){
   return [
     '#attached' => [ //use this to integrate your css and js files.
       'library' => [
-          'custom_block_name/custom_library', // Reference a custom library.
+          'custom_block_name/custom_library', // Reference a custom library in .libraries file.
       ],
     ],
-    '#theme' => 'custom_block', //must match name in .libraries file
+    '#theme' => 'custom_block', //must match name in .module file
     '#custom_data' => [
       'message' => 'Hello Footer',
     ],
