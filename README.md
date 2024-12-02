@@ -84,3 +84,9 @@ public function build(){
   ];
 }
 ```
+## Enable the plugin
+Open gitbash and run
+```
+./vendor/bin/drush en custom_block_name -y
+./vendor/bin/drush cr
+```
