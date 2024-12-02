@@ -22,6 +22,15 @@ dependencies:
   namespace Drupal\custom_block\Plugin\Block;
   use Drupal\Core\Block\BlockBase;
   use Drupal\Core\Block\BlockPluginInterface;
+  /**
+     * Provides a 'My Custom Block' block.
+     *
+     * @Block(
+     *   id = "custom_block_name",
+     *   admin_label = @Translation("Custom Content"),
+     *   category = @Translation("Custom")
+     * )
+     */
 
   class CustomBlock extends BlockBase implements BlockPluginInterface{
     /** * {@inheritdoc} **/
