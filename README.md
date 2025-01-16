@@ -1,101 +1,102 @@
 ## STEPS 📔
 Ensure you have created a drupal project and setup the site. <br>
 Navigate to /web/modules and create a folder /custom/custom_block_name <br>
-In the `/custom_block_name` folder add the following files
-- [ ] custom_block.info.yml
-- [ ] custom_block.module
-- [ ] Create folder: `src/Plugin/Block/` and add file `custom_block.php`
-> custom_block.info.yml
+For example, let's create an image carousel plugin <br>
+In the `/image_carousel` folder add the following files
+- [ ] image_carousel.info.yml
+- [ ] image_carousel.module
+- [ ] image_carousel.libraries.yml
+- [ ] Create folder: `src/Plugin/Block/` and add file `image_carousel.php`
+- [ ] Create folder `templates/` and add file `carousel_template.html.twig`
+- [ ] Create folder `css/` and add file `image_carousel.css`
+- [ ] Create folder `js/` and add file `image_carousel.js`
+> image_carousel.info.yml
 ```
-name: 'Custom Block Name'
+name: 'Image Carousel'
 type: module
-description: 'Some description here...'
+description: 'This is a custom image carousel for Drupal versions 8+'
 core: 8.x //must match the Drupal the site version
 core_version_requirement: ^8 || ^9 || ^10 || ^11
 package: Custom
 dependencies:
   - drupal:block
 ```
-> custom_block.php
+> image_carousel.php
 ```
 <?php
-  namespace Drupal\custom_block\Plugin\Block;
+  namespace Drupal\image_carousel\Plugin\Block; //namespace must match project folder name
   use Drupal\Core\Block\BlockBase;
   use Drupal\Core\Block\BlockPluginInterface;
   /**
      * Provides a 'My Custom Block' block.
      *
      * @Block(
-     *   id = "custom_block_name",
-     *   admin_label = @Translation("Custom Content"),
-     *   category = @Translation("Custom")
+     *   id = "image_carousel", //match project folder name.
+     *   admin_label = @Translation("Custom Image Carousel"),
+     *   category = @Translation("Custom") //this block will be found under "Custom"
      * )
      */
 
-  class CustomBlock extends BlockBase implements BlockPluginInterface{
+  class image_carousel extends BlockBase implements BlockPluginInterface{
     /** * {@inheritdoc} **/
     public function build(){
-      return ['#markup'=>$this->t('My custom block plugin'),
+      return ['#markup'=>$this->t('My custom image carousel block.'),
       ];
     }
   }
 ```
-> Now navigate to the main project directory and enable the module `./vendor/bin/drush en custom_block -y`
-## Setup in Drupal Site
-Now in the drupal site go to `Block Layout` and "Place Block" the newly created block in a relavant area.
-
 ## Custom html.twig dynamic content
-Create `/js` and `/css` folders in the root<br>
-In the `.module` file add:<br>
+> image_carousel.module
 ```
 <?php 
 /** 
 * Implements hook_theme()
 */
-function custom_block_theme(){
+function image_carousel_block_theme(){
   return [
-    'custom_block'=>[
+    'image_carousel_block'=>[
       'variables'=>['custom_data' => NULL,],
-      'template'=>'footer',// This should match the Twig template file name.
+      'template'=>'carousel_template',// This should match the Twig template file name.
     ],
   ];
 }
 ```
-Create a library file `custom_block.libraries.yml` with code:<br>
+> image_carousel.libraries.yml
 ```
-custom_library:
+image_carousel_library:
   version: 1.x
   css:
     theme:
-      css/custom_block.style.css: {}
+      css/image_carousel.css: {}
   js:
-    js/custom_block.js: {}
+    js/image_carousel.js: {}
   dependencies:
     - core/jquery
 ```
-Create a folder `/templates` and a file `custom.html.twig` with code:<br>
+> carousel_theme.html.twig
 ```
 <div>{{custom_data.message}}</div>
 ```
-Now in the `custom_block.php` file:<br>
+Now we can update the `image_carousel.php` file to have dynamic content:<br>
 ```
 public function build(){
   return [
     '#attached' => [ //use this to integrate your css and js files.
       'library' => [
-          'custom_block_name/custom_library', // Reference a custom library in .libraries file.
+          'image_carousel/custom_library', // Reference a custom library in .libraries file.
       ],
     ],
-    '#theme' => 'custom_block', //must match name in .module file
+    '#theme' => 'image_carousel_block', //must match name in .module file
     '#custom_data' => [
-      'message' => 'Hello Footer',
+      'message' => 'Hello World, this is an image carousel',
     ],
   ];
 }
 ```
-## Enable the plugin
+## Setup in Drupal Site
 Open gitbash and run
 ```
-./vendor/bin/drush en custom_block_name -y
+./vendor/bin/drush en image_carousel -y
 ./vendor/bin/drush cr
 ```
+Now in the drupal site go to `Block Layout` and "Place Block" the newly created block in a relavant area.
