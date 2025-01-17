@@ -93,6 +93,10 @@ public function build(){
   ];
 }
 ```
+## Important Notes
+- [ ] The class name and the file name must be the same (class image_carousel and src/Plugin/Block/image_carousel.php). If the class name is different, the block will appear in the list of available blocks, however, you will not be able to add it.
+- [ ] The namespace at the top of the block must match your module structure (the image_carousel.module will need namespace Drupal\image_carousel\Plugin\Block).
+- [ ] Make sure your module's naming convention is all lowercase/underscores. Some users report blocks not showing for modules with camelCase naming convention. `image_carousel` instead of `imageCarousel`
 ## Setup in Drupal Site
 Open gitbash and run
 ```
